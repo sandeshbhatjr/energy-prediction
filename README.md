@@ -7,7 +7,8 @@ Standard ML techniques for time-series forecasting:
 2. ETS  and Holtz-Winter model
 3. Dynamic harmonic regression
 4. Prophet
-Deep learning models:
+  
+Deep learning models:  
 1. RNN, LSTM, GRU and convolutional LSTM
 2. Inception Time [WIP]
 3. Hybrid ES-RNN [WIP]
