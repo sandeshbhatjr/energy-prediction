@@ -1,7 +1,7 @@
 # energy-prediction
 What is the SOTA technique for forecasting day-ahead and intraday market prices for electricity in Germany?
 
-The following techniques are attempted:
+The following techniques are attempted:  
 Standard ML techniques for time-series forecasting:
 1. Seasonal ARIMA model
 2. ETS  and Holtz-Winter model
