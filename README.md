@@ -11,12 +11,14 @@ From an economic standpoint, there are three key markets in which electricity is
 - **intra-day market**: the price is set upto ? minutes before?   
 
 The project is explained in the following parts:  
-[Data extraction and understanding](https://github.com/sandeshbhatjr/energy-prediction/blob/master/docs/ep_cleandata.ipynb)  
-[Statistical models](https://github.com/sandeshbhatjr/energy-prediction/blob/master/docs/ep_statistical_models.ipynb)  
-- [Using facebook's forecast engine: Prophet](https://github.com/sandeshbhatjr/energy-prediction/blob/master/docs/ep_prophet.ipynb)  
-[Deep models](https://github.com/sandeshbhatjr/energy-prediction/blob/master/docs/ep_deep.ipynb)  
-- [The Uber approach and M4 winner: ES-RNN](https://github.com/sandeshbhatjr/energy-prediction/blob/master/docs/ep_esRNN.ipynb)  
-Analysis and discussion `WIP`  
+1. [Data extraction and understanding](https://github.com/sandeshbhatjr/energy-prediction/blob/master/docs/ep_cleandata.ipynb)  
+2. [Statistical models](https://github.com/sandeshbhatjr/energy-prediction/blob/master/docs/ep_statistical_models.ipynb)  
+Additional:  
+[Using facebook's forecast engine: Prophet](https://github.com/sandeshbhatjr/energy-prediction/blob/master/docs/ep_prophet.ipynb)  
+3. [Deep models](https://github.com/sandeshbhatjr/energy-prediction/blob/master/docs/ep_deep.ipynb)  
+Additional:  
+[The Uber approach and M4 winner: ES-RNN](https://github.com/sandeshbhatjr/energy-prediction/blob/master/docs/ep_esRNN.ipynb)  
+4. Analysis and discussion `WIP`  
 
 The following techniques are attempted:  
 Standard ML techniques for time-series forecasting:
