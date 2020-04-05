@@ -1,6 +1,15 @@
 # energy-prediction
 What is the SOTA technique for forecasting day-ahead and intraday market prices for electricity in Germany?
 
+## Brief overview of domain knowledge
+
+Free electricity markets are governed by a strong supply-demand dynamics. The key reason is that electricity can't be stored, so what is generated needs to be used up instantly. This makes forecasting demands essential to the business.  
+From an economic standpoint, there are three key markets in which electricity is traded:
+
+- **futures market**: the price is set (upto 6 years) in advance, though you pay a premium for this assurance,  
+- **day-ahead market**: the price is set a day before,  
+- **intra-day market**: the price is set upto ? minutes before?   
+
 The following techniques are attempted:  
 Standard ML techniques for time-series forecasting:
 1. Seasonal ARIMA model
