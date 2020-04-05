@@ -1,7 +1,7 @@
 # energy-prediction
 What is the SOTA technique for forecasting day-ahead and intraday market prices for electricity in Germany?
 
-## Brief overview of domain knowledge
+## Introduction
 
 Free electricity markets are governed by a strong supply-demand dynamics. The key reason is that electricity can't be stored, so what is generated needs to be used up instantly. This makes forecasting demands essential to the business.  
 From an economic standpoint, there are three key markets in which electricity is traded:
@@ -20,15 +20,6 @@ Additional:
 [The Uber approach and M4 winner: ES-RNN](https://github.com/sandeshbhatjr/energy-prediction/blob/master/docs/ep_esRNN.ipynb)  
 4. Analysis and discussion `WIP`  
 
-The following techniques are attempted:  
-Standard ML techniques for time-series forecasting:
-1. Seasonal ARIMA model
-2. ETS  and Holtz-Winter model
-3. Dynamic harmonic regression
-4. Prophet
-  
-Deep learning models:  
-1. RNN, LSTM, GRU and convolutional LSTM
-2. Inception Time [WIP]
-3. Hybrid ES-RNN [WIP]
-4. LSTM-MSNet [WIP]
+## Build instructions
+
+COMING SOON
