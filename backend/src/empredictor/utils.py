@@ -7,11 +7,12 @@ def dateRange(startDate, endDate):
 		currentDate = currentDate + dt.timedelta(days=1)
 		yield currentDate
 
-def group_contiguous_points(sorted_datetime_list, day_intervals=1):
-	if len(sorted_datetime_list) == 0:
+def group_contiguous_points(datetime_list, day_intervals=1):
+	if len(datetime_list) == 0:
 		return []
 	# convert to numpy array for convenience
-	datetime_array = np.array(sorted_datetime_list)
+	datetime_list.sort() # needs to be sorted to work
+	datetime_array = np.array(datetime_list)
 	reversed_datetime_array = np.flip(datetime_array)
 	forward_difference = (datetime_array[1:] - datetime_array[:-1])
 	backward_difference = np.flip(reversed_datetime_array[1:] - reversed_datetime_array[:-1])
@@ -19,7 +20,7 @@ def group_contiguous_points(sorted_datetime_list, day_intervals=1):
 	contiguous_backward_mask = np.concatenate([(backward_difference != dt.timedelta(days=-1)), [True]])
 	# zip the index of True
 	contiguous_index = np.concatenate([np.where(contiguous_forward_mask), np.where(contiguous_backward_mask)]).T
-	contiguous_datetimes = [(sorted_datetime_list[i1], sorted_datetime_list[i2]) for (i1, i2) in contiguous_index.tolist()]
+	contiguous_datetimes = [(datetime_list[i1], datetime_list[i2]) for (i1, i2) in contiguous_index.tolist()]
 	return contiguous_datetimes
 
 # Daylight Savings Time utilities

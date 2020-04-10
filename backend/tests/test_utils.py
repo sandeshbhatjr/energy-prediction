@@ -32,3 +32,10 @@ class Test_group_contiguous_points:
 			(dt.date(2030,1,1), dt.date(2030,1,3)),
 			(dt.date(2030,1,5), dt.date(2030,1,6))
 		]
+
+	def test_for_unsorted_dates(self):
+		test_dates = [dt.date(2030,1,2), dt.date(2030,1,1), dt.date(2030,1,3), dt.date(2030,1,5), dt.date(2030,1,6)]
+		assert utils.group_contiguous_points(test_dates) == [
+			(dt.date(2030,1,1), dt.date(2030,1,3)),
+			(dt.date(2030,1,5), dt.date(2030,1,6))
+		]
