@@ -8,6 +8,8 @@ def dateRange(startDate, endDate):
 		yield currentDate
 
 def group_contiguous_points(sorted_datetime_list, day_intervals=1):
+	if len(sorted_datetime_list) == 0:
+		return []
 	# convert to numpy array for convenience
 	datetime_array = np.array(sorted_datetime_list)
 	reversed_datetime_array = np.flip(datetime_array)
