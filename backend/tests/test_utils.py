@@ -17,6 +17,18 @@ def test_when_is_DST():
 		assert start_next_sunday.month == 4
 		assert end_next_sunday.month == 11
 
-def test_group_contiguous_points():
-	test_date = dt.date(2030,1,1)
-	assert utils.group_contiguous_points([test_date]) == [(test_date, test_date)]
+
+class Test_group_contiguous_points:
+	def test_for_empty_list(self):
+		assert utils.group_contiguous_points([]) == []
+
+	def test_for_a_single_date(self):
+		test_date = dt.date(2030,1,1)
+		assert utils.group_contiguous_points([test_date]) == [(test_date, test_date)]
+
+	def test_for_multiple_dates(self):
+		test_dates = [dt.date(2030,1,1), dt.date(2030,1,2), dt.date(2030,1,3), dt.date(2030,1,5), dt.date(2030,1,6)]
+		assert utils.group_contiguous_points(test_dates) == [
+			(dt.date(2030,1,1), dt.date(2030,1,3)),
+			(dt.date(2030,1,5), dt.date(2030,1,6))
+		]
