@@ -16,8 +16,8 @@ def group_contiguous_points(datetime_list, day_intervals=1):
 	reversed_datetime_array = np.flip(datetime_array)
 	forward_difference = (datetime_array[1:] - datetime_array[:-1])
 	backward_difference = np.flip(reversed_datetime_array[1:] - reversed_datetime_array[:-1])
-	contiguous_forward_mask = np.concatenate([[True], (forward_difference != dt.timedelta(days=1))])
-	contiguous_backward_mask = np.concatenate([(backward_difference != dt.timedelta(days=-1)), [True]])
+	contiguous_forward_mask = np.concatenate([[True], (forward_difference > dt.timedelta(days=1))])
+	contiguous_backward_mask = np.concatenate([(backward_difference < dt.timedelta(days=-1)), [True]])
 	# zip the index of True
 	contiguous_index = np.concatenate([np.where(contiguous_forward_mask), np.where(contiguous_backward_mask)]).T
 	contiguous_datetimes = [(datetime_list[i1], datetime_list[i2]) for (i1, i2) in contiguous_index.tolist()]
