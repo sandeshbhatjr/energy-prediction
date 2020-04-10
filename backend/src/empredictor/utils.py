@@ -9,7 +9,7 @@ def dateRange(startDate, endDate):
 
 def group_contiguous_points(sorted_datetime_list, day_intervals=1):
 	# convert to numpy array for convenience
-	datetime_array = np.array(sorted_datetime_list) 
+	datetime_array = np.array(sorted_datetime_list)
 	reversed_datetime_array = np.flip(datetime_array)
 	forward_difference = (datetime_array[1:] - datetime_array[:-1])
 	backward_difference = np.flip(reversed_datetime_array[1:] - reversed_datetime_array[:-1])
