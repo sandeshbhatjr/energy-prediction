@@ -27,7 +27,7 @@ class Test_group_contiguous_points:
 		test_date = dt.date(2030,1,1)
 		assert utils.group_contiguous_points([test_date]) == [(test_date, test_date)]
 
-	def test_for_multiple_dates(self):
+	def test_for_multiple_dates_with_two_contiguous_parts(self):
 		test_dates = [dt.date(2030,1,1), dt.date(2030,1,2), dt.date(2030,1,3), dt.date(2030,1,5), dt.date(2030,1,6)]
 		assert utils.group_contiguous_points(test_dates) == [
 			(dt.date(2030,1,1), dt.date(2030,1,3)),
@@ -41,14 +41,14 @@ class Test_group_contiguous_points:
 			(dt.date(2030,1,5), dt.date(2030,1,6))
 		]
 
-	def test_for_repeated_dates(self):
+	def test_for_dates_with_one_repeated_twice(self):
 		test_dates = [dt.date(2030,1,1), dt.date(2030,1,1), dt.date(2030,1,2), dt.date(2030,1,5), dt.date(2030,1,6)]
 		assert utils.group_contiguous_points(test_dates) == [
 			(dt.date(2030,1,1), dt.date(2030,1,2)),
 			(dt.date(2030,1,5), dt.date(2030,1,6))
 		]
 
-	def test_for_repeated_same_date(self):
+	def test_for_same_date_repeated_5_times(self):
 		test_dates = [dt.date(2030,1,1), dt.date(2030,1,1), dt.date(2030,1,1), dt.date(2030,1,1), dt.date(2030,1,1)]
 		assert utils.group_contiguous_points(test_dates) == [
 			(dt.date(2030,1,1), dt.date(2030,1,1))
