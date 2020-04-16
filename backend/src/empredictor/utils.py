@@ -4,8 +4,8 @@ import numpy as np
 def dateRange(startDate, endDate):
 	currentDate = startDate
 	while (endDate > currentDate):
-		currentDate = currentDate + dt.timedelta(days=1)
 		yield currentDate
+		currentDate = currentDate + dt.timedelta(days=1)
 
 def group_contiguous_points(datetime_list, day_intervals=1):
 	if len(datetime_list) == 0:
