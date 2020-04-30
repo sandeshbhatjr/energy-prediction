@@ -10,3 +10,18 @@ class RequestFailure(Exception):
 
 class IncorrectAPIKey(Exception):
 	pass
+
+class DataNotRetrieved(Exception):
+	pass
+
+class InvalidTimeSlots(Exception):
+	def __init__(self, message, dates_of_incorrect_entries):
+		super().__init__(self, message)
+		self.message = message
+		self.dates_of_incorrect_entries = dates_of_incorrect_entries
+
+class MoreThanOneContiguousDatapoint(Exception):
+	def __init__(self, message, non_contiguous_time_slots):
+		super().__init__(self, message)
+		self.message = message
+		self.non_contiguous_time_slots = non_contiguous_time_slots

@@ -3,9 +3,9 @@ import datetime as dt
 
 from empredictor import utils
 
-def test_when_is_DST():
+def test_when_is_last_sunday_of_march_and_october():
 	for year in range(2015, 2050):
-		start, end = utils.when_is_DST(year)
+		start, end = utils.when_is_last_sunday_of_march_and_october(year)
 		# it starts in March and ends in October
 		assert start.month == 3
 		assert end.month == 10

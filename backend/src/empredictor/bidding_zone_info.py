@@ -32,5 +32,21 @@ class Germany:
 			return [('DE-AT-LU', start, end)]
 		elif start >= split_date and end >= split_date:
 			return [('DE-LU', start, end)]
-	def get_DST(self, start, end):
-		pass
+	def get_DST_datetime(self, start, end):
+		"""
+			start, end should be passed in local time
+		"""
+		list_of_DST_dates = [
+			when_is_last_sunday_of_march_and_october(year) for year in range(start.year, end.year + 1)
+		]
+		list_of_DST_start_dates = [
+			start_date for start_date, _ in list_of_DST_dates 
+			if (start_date <= end) and (start_date >= start)
+		]
+		list_of_DST_start_datetimes = list(map(lambda date: dt.datetime.combine(date, dt.time(3,0)), list_of_DST_start_dates))
+		list_of_DST_end_dates = [
+			end_date for _, end_date in list_of_DST_dates 
+			if (end_date <= end) and (end_date >= start)
+		]
+		list_of_DST_end_datetimes = list(map(lambda date: dt.datetime.combine(date, dt.time(2,0)), list_of_DST_end_dates))
+		return list_of_DST_start_datetimes, list_of_DST_end_datetimes
