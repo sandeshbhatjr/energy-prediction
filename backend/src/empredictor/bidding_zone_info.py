@@ -1,6 +1,8 @@
 import datetime as dt
 import pandas as pd
 
+from .utils import when_is_last_sunday_of_march_and_october
+
 # THIS IS SUBJECT TO CHANGE AND NEEDS TO BE UPDATED ACCORDINGLY
 
 # Only covered for Germany; the rest will follow sometime in the future
@@ -30,3 +32,5 @@ class Germany:
 			return [('DE-AT-LU', start, end)]
 		elif start >= split_date and end >= split_date:
 			return [('DE-LU', start, end)]
+	def get_DST(self, start, end):
+		pass

@@ -24,16 +24,14 @@ def group_contiguous_points(datetime_list, day_intervals=1):
 	return contiguous_datetimes
 
 # Daylight Savings Time utilities
-def when_is_DST(year):
+# EU specific
+def when_is_last_sunday_of_march_and_october(year):
 	# get day of last date
-	end_of_march = (dt.datetime(year, 4, 1, 2, 0) - dt.timedelta(days=1))
-	end_of_october = (dt.datetime(year, 11, 1, 3, 0) - dt.timedelta(days=1))
+	end_of_march = (dt.datetime(year, 4, 1) - dt.timedelta(days=1))
+	end_of_october = (dt.datetime(year, 11, 1) - dt.timedelta(days=1))
 	# some modular arithmetic to compute how far it is from the last Sunday
 	days_after_last_sunday_of_march = (end_of_march.weekday() + 1) % 7
 	days_after_last_sunday_of_october = (end_of_october.weekday() + 1) % 7
 	last_sunday_of_march = end_of_march - dt.timedelta(days=days_after_last_sunday_of_march)
 	last_sunday_of_october = end_of_october - dt.timedelta(days=days_after_last_sunday_of_october)
-	return last_sunday_of_march, last_sunday_of_october
-
-def isDST(year):
-	pass
+	return last_sunday_of_march.date(), last_sunday_of_october.date()

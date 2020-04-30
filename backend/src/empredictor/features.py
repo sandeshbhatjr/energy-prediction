@@ -1,8 +1,6 @@
 import pandas as pd
 from holidays import Germany, Austria, Luxembourg
 
-from .utils import when_is_DST
-
 # ALL THESE FUNCTIONS WORK ONLY WHEN THE INDEX OF THE PASSED DATAFRAME IS A DATETIME OBJECT
 
 # weekday
