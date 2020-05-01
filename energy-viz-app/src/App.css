@@ -1,7 +1,125 @@
-.App {
-  text-align: center;
+#App {
+	display: grid;
+	grid-template-columns: 20vw 55vw 25vw;
+	grid-template-rows: auto;
 }
 
-.graph {
-  padding: 2rem 2rem 0rem 20vw;
+#graph-header {
+	font-size: 1rem;
+	margin-bottom: 2rem;
+}
+
+.graph-options {
+	font-size: 1.2rem;
+	color: rgb(100,100,200);
+	margin-right: 0.1rem;
+	border-style: solid;
+	border-width: 1px;
+	border-radius: 3px;
+	padding: 0.5rem;
+	cursor: pointer;
+}
+
+.graph-options:hover {
+	background: rgb(200,200,200);
+	border-radius: 3px;
+	font-size: 1.2rem;
+	color: rgb(0,0,0);
+	margin-right: 0.1rem;
+	padding: 0.5rem;
+	border-style: solid;
+	border-width: 1px;
+	border-color: rgb(200,200,200);
+}
+
+.graph-options-selected {
+	background: rgb(200,200,200);
+	border-radius: 3px;
+	font-size: 1.2rem;
+	color: rgb(0,0,0);
+	margin-right: 0.1rem;
+	padding: 0.5rem;
+	border-style: solid;
+	border-width: 1px;
+	border-color: rgb(200,200,200);
+}
+
+#calendar-bar {
+	grid-row: 1 / 2;
+	grid-column: 1 / 2;
+	position: absolute;
+	padding: 1.5rem;
+}
+
+#graph {
+	grid-row: 1 / 2;
+	grid-column: 2 / 3;
+	padding: 2rem 2rem 0rem 0rem;
+	border-style: none solid none solid;
+	border-width: 1px;
+	border-color: rgb(150,150,150);
+}
+
+#display {
+	padding: 0rem 0rem 0rem 2rem;
+}
+
+#additional-info {
+	border-style: solid none none none;
+	border-width: 1px;
+	margin: 0px;
+	width: 95.6%;
+	z-index: -10;
+	border-color: rgb(100,100,100);
+	background: rgb(250,250,220);
+	padding: 1.2rem 2rem 2rem 2rem;
+	min-height: 30rem;
+	font-size: 1rem;
+}
+
+#additional-info #y-data {
+	padding-left: 0.5rem;
+}
+
+hr {
+	background: none;
+	border-style: none none solid none;
+	margin: 0rem 0rem 1rem 0rem;
+	border-color: rgb(200,200,200);
+}
+
+#additional-info .select-background {
+	font-size: 1rem;
+}
+
+#additional-info a {
+	color: rgb(100,100,200);
+	text-decoration: none;
+}
+
+#additional-info .options-header {
+	margin-bottom: 0.3rem;
+}
+
+.tab-selected {
+	background: white;
+	border-style: solid;
+	border-radius: 5px;
+	padding: 0rem 0.2rem 0rem 0.2rem;
+	border-color: rgb(0,0,0);
+	background: rgb(250,250,150);
+	border-width: 1px;
+}
+
+#models {
+	z-index: 1;
+	grid-row: 1 / 2;
+	grid-column: 3 / 4;
+	padding: 1.5rem;
+	background: rgb(250,250,250);
+}
+
+.model-selected {
+	background: rgb(150,150,250);
+	width: 95%;
 }

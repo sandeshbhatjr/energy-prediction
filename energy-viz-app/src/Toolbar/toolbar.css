@@ -1,17 +1,6 @@
-.custom-date-picker {
-  font-size: 2rem;
-}
-
-.custom-date-picker-class input {
-	font-size: 1rem;
-	padding: 0.5rem;
-	color: rgb(100,100,100);
-	outline: none;
-}
-
 #tool-bar {
 	display: grid;
-	grid-template-columns: 10rem 2.5rem auto;
+	grid-template-columns: 15rem 2.5rem auto;
 	grid-template-rows: auto;
 }
 

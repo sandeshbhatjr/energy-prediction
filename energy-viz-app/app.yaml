@@ -1,0 +1,6 @@
+runtime: nodejs10
+service: energy-client
+
+handlers:
+- url: /.*
+  static_dir: build

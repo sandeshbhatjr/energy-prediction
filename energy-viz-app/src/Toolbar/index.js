@@ -5,6 +5,8 @@ import dateFormat from 'dateformat';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 
+const backendUrl = process.env.NODE_ENV === 'production' ? 'https://energy-predictor.appspot.com/' : 'http://localhost:8080';
+
 class Toolbar extends Component {
 	constructor(props) {
 		let today = new Date();
@@ -13,10 +15,18 @@ class Toolbar extends Component {
 			startDate: today,
 			weekday: 'Loading ...'
 		};
-		fetch(`http://localhost:8080/daprices/${dateFormat(today, "yyyymmdd")}`)
+		fetch(`${backendUrl}/v1/daprices/${dateFormat(today, "yyyymmdd")}`)
 			.then(res => res.json())
 			.then(data => {
-				this.setState({ weekday: data.weekday });
+				this.setState({ 
+					weekday: data.weekday
+				});
+				this.props.updateGraph(data['Day Ahead Price']);
+			});
+		fetch(`${backendUrl}/v1/summary/daily/all`)
+			.then(res => res.json())
+			.then(data => {
+				this.props.updatebgGraph(data);
 			});
 	}
 
@@ -25,10 +35,13 @@ class Toolbar extends Component {
 			startDate: date,
 			weekday: 'Loading ...'
 		});
-		fetch(`http://localhost:8080/daprices/${dateFormat(date, "yyyymmdd")}`)
+		fetch(`${backendUrl}/v1/daprices/${dateFormat(date, "yyyymmdd")}`)
 			.then(res => res.json())
 			.then(data => {
-				this.setState({ weekday: data.weekday });
+				this.setState({ 
+					weekday: data.weekday
+				});
+				this.props.updateGraph(data['Day Ahead Price']);
 			});
 	}
 
@@ -36,11 +49,8 @@ class Toolbar extends Component {
 		return (
 			<div id="tool-bar">
 				<div id='custom-date-picker' className="custom-date-picker-class">
-					<DatePicker selected={this.state.startDate} onChange={this.handleChange} />
-				</div>  
-				<div id='day-type'>
-					{ this.state.weekday }
-				</div>
+					<DatePicker selected={this.state.startDate} onChange={this.handleChange} inline />
+				</div> 
 			</div>
 		);
 	}
