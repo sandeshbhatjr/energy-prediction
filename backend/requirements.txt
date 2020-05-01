@@ -4,7 +4,7 @@ certifi==2019.11.28
 chardet==3.0.4
 Click==7.0
 convertdate==2.2.0
--e git+https://github.com/sandeshbhatjr/energy-prediction.git@ed50cfc41f908720a77a0f2a886fda96eaf14d8f#egg=empredictor&subdirectory=backend
+-e git+https://github.com/sandeshbhatjr/energy-prediction.git@960b82abfe8a394cfc46134c3702f0dccc43a2af#egg=empredictor&subdirectory=backend
 entsoe-py==0.2.11
 Flask==1.1.1
 Flask-Cors==3.0.8

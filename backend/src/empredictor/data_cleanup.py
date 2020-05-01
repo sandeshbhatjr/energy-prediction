@@ -39,7 +39,7 @@ class da_price:
 		try:
 			# load from cache
 			df = pd.read_hdf(self.cache_filename, key='da_prices')
-			ddf = daily_dataframe(df, self.country, self.time_slots)
+			ddf = daily_dataframe.from_ml_ready_df(df, self.country, self.time_slots)
 		except (FileNotFoundError, MoreThanOneContiguousDatapoint, InvalidTimeSlots):
 			if self.verbose:
 				print('Cache not found/corrupt: Creating one at {}.'.format(self.cache_filename))
@@ -53,17 +53,19 @@ class da_price:
 			Updates the daily dataframe until date specified by the country_info date range.
 			For example, for Germany, this is until end of tomorrow if after 12.00 PM.
 		"""
-		start = self.ddf.end + pd.Timedelta(hours=1)
+		_, current_end = self.ddf.datetimes(return_range=True)
+		start = current_end + pd.Timedelta(hours=1)
 		_, end = self.country.get_range()
 		if end > start:
 			if self.verbose:
 				print("Updating entries from {} until {}".format(start, end))
 			try:
 				ddf_to_update = self.from_entsoe(start, end)
+				# append to full dataframe
+				self.ddf = daily_dataframe.append(self.ddf, ddf_to_update)
 			except NoMatchingDataError as e:
+				print("Update did not succeed:")
 				print(e)
-			# append to full dataframe
-			self.ddf = daily_dataframe.append(self.ddf, df_to_update)
 		else:
 			print('Cache up-to-date')
 	def save_to_cache(self):
@@ -75,10 +77,12 @@ class da_price:
 			cache_ddf = daily_dataframe.from_ml_ready_df(cache_df, self.country, self.time_slots)
 			dates_to_add = daily_dataframe.compare(self.ddf, cache_ddf)
 			if dates_to_add != []:
-				# REDO THIS ###################
-				df_to_save = pd.concat([cache_ddf.dataframe, self.ddf.dataframe.retrieve(dates_to_add)])
+				update_dates_start, update_dates_end = (group_contiguous_points(dates_to_add))[0]
+				df_to_update = self.ddf.dataframe.loc[update_dates_start, update_dates_end, 'Day Ahead Price']
+				df_to_update.set_index(df_to_update.index.tz_localize(None), inplace=True)
+				print(df_to_update)
+				df_to_save = pd.concat([cache_ddf.dataframe, df_to_update])
 				df_to_save.to_hdf(self.cache_filename, key='da_prices')
-				###############################
 				if self.verbose:
 					print('Cache saved; {} updated.'.format(dates_to_add))
 		except FileNotFoundError:

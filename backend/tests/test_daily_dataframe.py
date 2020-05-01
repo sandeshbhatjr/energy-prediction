@@ -275,3 +275,34 @@ class Test_daily_dataframe:
 		error_message = str(e.value)
 		assert '(datetime.date(2020, 1, 1), datetime.date(2020, 1, 1))' in error_message
 		assert '(datetime.date(2020, 1, 3), datetime.date(2020, 1, 3))' in error_message
+
+	def test_daily_dataframe_len_works_as_expected(self):
+		test_df = pd.DataFrame(
+			data=[
+				{'v': 1}, 
+				{'v': 1}, 
+				{'v': 1}, 
+				{'v': 1}, 
+			], 
+			index=[
+				dt.datetime(2020,1,1,0,0), 
+				dt.datetime(2020,1,1,2,0), 
+				dt.datetime(2020,1,2,0,0), 
+				dt.datetime(2020,1,2,2,0), 
+			]
+		)
+		german_info = Germany()
+		ddf = daily_dataframe.from_ml_ready_df(test_df, german_info, [dt.time(0,0), dt.time(2,0)])
+
+		assert len(ddf) == 4
+		
+	def test_daily_dataframe_indexing_works_as_expected(self):
+		test_df = pd.read_hdf('tests/test_data/manually_processed_dataframes', key='raw_df')
+		german_info = Germany()
+		time_slots = [dt.time(i,0) for i in range(24)]
+
+		ddf = daily_dataframe.from_tz_aware_df(test_df, german_info, time_slots)
+		start = pd.Timestamp('20151025 00:00:0000', tz="Europe/Berlin")
+		end = pd.Timestamp('20151025 23:00:0000', tz="Europe/Berlin")
+		print(ddf[start:end])
+		assert False

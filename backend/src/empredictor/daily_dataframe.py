@@ -58,7 +58,9 @@ class daily_dataframe:
 			pd.concat([fake_df, dataframe_with_duplicates_removed, rest_of_dataframe])
 		).sort_index()
 		return cls(DST_corrected_dataframe, country, timeslots)
-	def datetimes(self):
+	def __len__(self):
+		return len(self.dataframe)
+	def datetimes(self, return_range=False):
 		"""
 			Returns datetime index as tz-aware datetimes.
 		"""
@@ -67,7 +69,11 @@ class daily_dataframe:
 			(self.duplicate_datetimes_removed)
 		)
 		local_datetime_index = pd.Index(local_datetime_list)
-		return local_datetime_index.tz_localize(self.country.timezone_name, ambiguous='infer')
+		tz_aware_datetime_index = local_datetime_index.tz_localize(self.country.timezone_name, ambiguous='infer')
+		if return_range:
+			return min(tz_aware_datetime_index), max(tz_aware_datetime_index)
+		else:
+			return tz_aware_datetime_index
 	def retrieve(self, start, end, column_names):
 		"""
 			Retrieves entries using tz-aware dates.
@@ -91,7 +97,8 @@ class daily_dataframe:
 		local_df = (
 			pd.concat([duplicate_df, rest_of_df.drop(fake_datetimes_added)])
 		).sort_index()
-		return local_df.tz_localize(self.country.timezone_name, ambiguous='infer')
+		tz_aware_df = local_df.tz_localize(self.country.timezone_name, ambiguous='infer')
+		return tz_aware_df
 	@staticmethod
 	def compare(new_ddf, old_ddf):
 		"""
@@ -104,17 +111,15 @@ class daily_dataframe:
 			Appends ddf_to_append to ddf, sorts it and return the appended ddf.
 			For this to work, the appended ddf should still satisfy the contiguous and timeslot condition.
 		"""
-		assert old_ddf.country == new_ddf.country
-		assert old_ddf.timeslots == new_ddf.timeslots
-		return cls(pd.concat([old_ddf, new_ddf]), old_ddf.country, old_ddf.timeslots)
+		assert ddf.country == ddf_to_append.country
+		assert ddf.timeslots == ddf_to_append.timeslots
+		return cls(pd.concat([ddf.dataframe, ddf_to_append.dataframe]), ddf.country, ddf.timeslots)
 	@staticmethod
 	def verify_data_integrity(dataframe, timeslots):
 		"""
 			Checks if the index consists of a fixed time slots per day in one contiguous unit across days.
 			Index should be tz-naive datetime objects.
 		"""
-		if dataframe.index.tzinfo is not None:
-			dataframe.set_index(dataframe.index.tz_localize(None), inplace=True)
 		timeslots_by_day = { 
 			key.date(): value.time for key, value in dataframe.index.groupby(dataframe.index.date).items()
 		}
