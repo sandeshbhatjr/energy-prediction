@@ -16,10 +16,15 @@ The project is explained in the following parts:
 Additional:  
 [Using facebook's forecast engine: Prophet](https://github.com/sandeshbhatjr/energy-prediction/blob/master/docs/ep_prophet.ipynb)  
 3. [Deep models](https://github.com/sandeshbhatjr/energy-prediction/blob/master/docs/ep_deep.ipynb)  
-Additional:  
-[The Uber approach and M4 winner: ES-RNN](https://github.com/sandeshbhatjr/energy-prediction/blob/master/docs/ep_esRNN.ipynb)  
+
 4. Analysis and discussion `WIP`  
 
-## Build instructions
+## Getting started
 
-COMING SOON
+The project consists of a few parts: the notebooks in `/docs`, the backend predictor in `/backend` and a frontend client for visualisation in `/energy-viz-app`. The notebooks are basically Jupyter notebooks which form the core of the explanation of the data analysis method. The backend takes care of managing the prediction task as a service, and is written in Python. The frontend client is written in React, using d3.js for visualisation.  
+
+For installing the backend client, just install from requirements.txt. Expect a package to be deployed into PyPi in the near future:
+```
+cd backend
+pip install requirements.txt
+```
