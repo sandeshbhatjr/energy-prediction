@@ -47,4 +47,4 @@ This project is licensed under the GNU-GPL license - see the file LICENSE for mo
 
 ## Acknowledgements
 
-Thanks to entsoe Transparency Platform for providing the API key for data access.
+Thanks to ENTSOE Transparency Platform for providing the API key for data access.
