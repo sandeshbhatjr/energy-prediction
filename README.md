@@ -23,8 +23,16 @@ Additional:
 
 The project consists of a few parts: the notebooks in `/docs`, the backend predictor in `/backend` and a frontend client for visualisation in `/energy-viz-app`. The notebooks are basically Jupyter notebooks which form the core of the explanation of the data analysis method. The backend takes care of managing the prediction task as a service, and is written in Python. The frontend client is written in React, using d3.js for visualisation.  
 
-For installing the backend client, just install from requirements.txt. Expect a package to be deployed into PyPi in the near future:
+For running the backend, just install from requirements.txt and run the main.py script. Expect a package to be deployed into PyPi in the near future:
 ```
 cd backend
 pip install requirements.txt
+python main.py
 ```
+It is possible to look at the results directly, though the frontend client does the job of building shiny graphs using this data in a REST-like manner. The default port of the backend is assumed to be `8080`.
+```
+cd energy-viz-app
+npm install
+npm run local
+```
+Alternatively, you can access a live production version [online](https://energy-client-dot-energy-predictor.appspot.com/).
