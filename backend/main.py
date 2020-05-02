@@ -9,7 +9,6 @@ from empredictor.data_cleanup import daily_dataframe, da_price
 from empredictor.exceptions import IncorrectAPIKey
 from empredictor.bidding_zone_info import Germany
 from empredictor.exceptions import RequestFailure, IncorrectAPIKey
-from empredictor.model import naive_model
 
 import secret
 
