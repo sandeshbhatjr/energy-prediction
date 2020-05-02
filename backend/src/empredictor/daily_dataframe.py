@@ -17,7 +17,8 @@ class daily_dataframe:
 		"""
 			Initialize with dataframe in ml-ready format with fixed number of timeslots per day.
 			When there is DST, there are two days in a year when there are repeated/deleted hours.
-			If your dataframe is in a local timezone with DST, use 
+			If your dataframe is in a local timezone with DST, use from_tz_aware_df() class method.
+			If your dataframe is already processed into a ML ready format, use from_ml_ready_df().
 		"""
 		self.start, self.end = self.verify_data_integrity(dataframe, timeslots)
 		self.dataframe = dataframe
