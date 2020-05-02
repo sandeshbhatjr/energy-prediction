@@ -36,3 +36,15 @@ npm install
 npm run local
 ```
 Alternatively, you can access a live production version [online](https://energy-client-dot-energy-predictor.appspot.com/).
+
+## License
+
+This project is licensed under the GNU-GPL license - see the file LICENSE for more details.
+
+## Author
+
+- J R Sandesh Bhat - Initial work [https://github.com/sandeshbhatjr](https://github.com/sandeshbhatjr)
+
+## Acknowledgements
+
+Thanks to entsoe Transparency Platform for providing the API key for data access.
