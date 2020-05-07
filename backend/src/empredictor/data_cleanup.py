@@ -70,19 +70,14 @@ class da_price:
 			print('Cache up-to-date')
 	def save_to_cache(self):
 		""" 
-			Saves additional entries for daily dataframe to cache.
+			Saves current dataframe to cache if it contains additional dates.
 		"""
 		try:
 			cache_df = pd.read_hdf(self.cache_filename, key='da_prices')
 			cache_ddf = daily_dataframe.from_ml_ready_df(cache_df, self.country, self.time_slots)
 			dates_to_add = daily_dataframe.compare(self.ddf, cache_ddf)
 			if dates_to_add != []:
-				update_dates_start, update_dates_end = (group_contiguous_points(dates_to_add))[0]
-				df_to_update = self.ddf.dataframe.loc[update_dates_start:update_dates_end, ['Day Ahead Price']]
-				df_to_update.set_index(df_to_update.index.tz_localize(None), inplace=True)
-				print(df_to_update)
-				df_to_save = pd.concat([cache_ddf.dataframe, df_to_update])
-				df_to_save.to_hdf(self.cache_filename, key='da_prices')
+				self.ddf.dataframe.to_hdf(self.cache_filename, key='da_prices')
 				if self.verbose:
 					print('Cache saved; {} updated.'.format(dates_to_add))
 		except FileNotFoundError:

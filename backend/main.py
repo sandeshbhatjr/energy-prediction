@@ -51,14 +51,19 @@ def get_daprice(dateChosen):
 		return jsonify({
 			'err': 'Your input date is not in the right format'
 		})
-
-	start = pd.Timestamp(dt.datetime(year, month, day, 0, 0), tz='Europe/Berlin')
-	end = pd.Timestamp(dt.datetime(year, month, day, 23, 0), tz='Europe/Berlin')
+	try:
+		start = pd.Timestamp(dt.datetime(year, month, day, 0, 0), tz='Europe/Berlin')
+		end = pd.Timestamp(dt.datetime(year, month, day, 23, 0), tz='Europe/Berlin')
+	except ValueError as e:
+		return jsonify({
+			'err': str(e)
+		})
 	da_price = da_price_germany.get(start, end)
-	da_price.set_index(da_price.index.hour, inplace=True)
-	if da_price is None:
+	if da_price is not None:
+		da_price.set_index(da_price.index.hour, inplace=True)
+		return jsonify(da_price.to_dict())
+	else:
 		return jsonify({'err': 'No data for this date available.'})
-	return jsonify(da_price.to_dict())
 
 @app.route('/v1/model/list')
 def list_models():
@@ -69,11 +74,11 @@ def list_models():
 		},
 		'AR(k=720)' : {
 			'descr' : 'Univariate approach 1 with a seasonality of 720 hours.',
-			'acc' : '33.67%'
+			'acc' : '13.67%'
 		},
 		'VAR(k=720)' : {
 			'descr' : 'Mulitvariate approach with a seasonality of 14 days.',
-			'acc' : '33.67%'
+			'acc' : '6.67%'
 		},
 	}
 	return jsonify(models)
