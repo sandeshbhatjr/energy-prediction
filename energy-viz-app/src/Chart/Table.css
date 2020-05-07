@@ -1,0 +1,16 @@
+tr, td {
+	padding: 0.1rem;
+	margin: 0px;
+}
+
+tr {
+	display: block;
+	float: left;
+}
+
+td {
+	display: block;
+	border-style: solid;
+	border-width: 1px;
+	border-color: rgb(100,100,100);
+}

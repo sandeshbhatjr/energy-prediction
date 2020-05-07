@@ -1,0 +1,13 @@
+.loading-ph {
+	height: 10rem;
+	padding-top: 8rem;
+	text-align: center;
+	font-size: 1.5rem;
+	animation: blink 2s infinite;
+}
+
+@keyframes blink {
+	0% {opacity: 1;}
+	50% {opacity: 0;}
+	100% {opacity: 1;}
+}
