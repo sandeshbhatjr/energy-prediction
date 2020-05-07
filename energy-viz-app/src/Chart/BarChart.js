@@ -1,6 +1,8 @@
 import * as d3 from 'd3';
 import React, { Component } from 'react';
 
+import { range } from '../utils';
+
 class BarChart extends Component {
 	componentDidMount() {
 		this.createBarChart();
@@ -19,6 +21,32 @@ class BarChart extends Component {
 		const yScale = d3.scaleLinear()
 			.domain([dataMin, dataMax])
 			.range([-10, this.props.size[1]]);
+
+		const yMarkerValues = [...range((parseInt(dataMin/10))*10, parseInt(dataMax/10)*10, 10)]
+		// y-marker
+		d3.select(node)
+			.selectAll('line.y-marker')
+			.data(yMarkerValues)
+			.enter()
+			.append('line')
+			.attr('class', 'y-marker');
+
+		d3.select(node)
+			.selectAll('line.y-marker')
+			.data(yMarkerValues)
+			.exit()
+			.remove();
+
+		d3.select(node)
+			.selectAll('line.y-marker')
+			.data(yMarkerValues)
+			.attr('x1', 0)
+			.attr('y1', (d, i) => this.props.size[1] - yScale(d))
+			.attr('x2', this.props.size[0])
+			.attr('y2', (d, i) => this.props.size[1] - yScale(d))
+			.attr('stroke', 'rgb(200,200,200)')
+			.attr('stroke-width', '1px')
+			.attr('stroke-dasharray', '2,4');
 
 		d3.select(node)
 			.selectAll('rect.data')
@@ -51,7 +79,8 @@ class BarChart extends Component {
 				return Math.abs(yScale(d) - yScale(0))
 			})
 			.attr('width', 8)
-			.attr('stroke', 'rgb(150,150,50)');
+			.attr('stroke', 'rgb(150,150,50)')
+			.attr('opacity', '0.8');
 
 		d3.select(node)
 			.selectAll('rect.predicted')
@@ -139,7 +168,6 @@ class BarChart extends Component {
 		d3.select(node)
 			.selectAll('rect.bgUppQuartileMarker')
 			.data(this.props.bgQuartiles)
-			.style('transition', 'all 1s')
 			.attr('x', (d, i) => i*30)
 			.attr('y', d => this.props.size[1] - yScale(d[1]))
 			.attr('height', 1)
@@ -161,7 +189,6 @@ class BarChart extends Component {
 		d3.select(node)
 			.selectAll('rect.bgLowQuartileMarker')
 			.data(this.props.bgQuartiles)
-			.style('transition', 'all 1s')
 			.attr('x', (d, i) => i*30)
 			.attr('y', d => this.props.size[1] - yScale(d[0]))
 			.attr('height', 1)
@@ -170,20 +197,20 @@ class BarChart extends Component {
 		// x-axis
 		d3.select(node)
 			.selectAll('line.x-axis')
-			.data(this.props.data)
+			.data([1])
 			.enter()
 			.append('line')
 			.attr('class', 'x-axis');
 
 		d3.select(node)
 			.selectAll('line.x-axis')
-			.data(this.props.data)
+			.data([1])
 			.exit()
 			.remove();
 
 		d3.select(node)
 			.selectAll('line.x-axis')
-			.data(this.props.data)
+			.data([1])
 			.attr('x1', 0)
 			.attr('y1', (d, i) => this.props.size[1] - yScale(0))
 			.attr('x2', this.props.size[0])

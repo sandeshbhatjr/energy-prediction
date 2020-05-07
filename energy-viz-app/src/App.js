@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
-import { BarChart } from './Chart';
+import Visualisation from './Chart';
 import Toolbar from './Toolbar';
-
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faTable, faChartBar, faChartLine } from '@fortawesome/free-solid-svg-icons';
 
 import Select from 'react-select';
 
@@ -12,19 +9,42 @@ import './App.css';
 class App extends Component {
 	constructor(props) {
 		super(props);
+		const tempData = new Array(24).fill(30);
 		this.state = {
-			graphData: new Array(24).fill(30),
-			predictedGraphData: new Array(24).fill(30),
-			bgMeanGraphData: new Array(24).fill(30),
-			bgQuartileGraphData: new Array(24).fill(30),
+			graphStatus: false,
+			zoomLevel: 50,
+			graphData: tempData,
+			predictedGraphData: tempData,
+			bgMeanGraphData: tempData,
+			bgQuartileGraphData: new Array(24).fill([30, 30]),
+			bgOptions: { value: 'All', label: 'All' }
 		}
 	}
 
-	updateGraph = (newData) => {
-		let newGraphData = Object.keys(newData).map(key => (newData[key]));
+	toggleStatus = () => {
 		this.setState({
-			graphData: newGraphData
+			graphStatus: !this.state.graphStatus
 		});
+	}
+
+	displayLoadScreen = () => {
+		this.loadScreenDisplayTimerId = setTimeout(() => {
+			this.toggleStatus();
+			console.log('Load screen activated');
+		}, 2000);
+	}
+
+	updateGraph = (newData) => {
+		if (newData) {
+			let newGraphData = Object.keys(newData).map(key => (newData[key]));
+			if (this.loadScreenDisplayTimerId) {
+				clearTimeout(this.loadScreenDisplayTimerId);
+			}
+			this.setState({
+				graphData: newGraphData,
+				graphStatus: true,
+			});
+		}
 	}
 
 	updatebgGraph = (newData) => {
@@ -35,31 +55,31 @@ class App extends Component {
 		let newBGmax = Math.max(...Object.keys(newData.max).map(key => (newData.max[key])));
 		let newBGQuartileGraphData = newBGLowQGraphData.map((lq, i) => {
 			return [lq, newBGUppQGraphData[i]]
-		})
-		console.log(Object.keys(newData.min).map(key => (newData.min[key])));
+		});
+
+		if (this.loadScreenDisplayTimerId){
+			clearTimeout(this.loadScreenDisplayTimerId);
+		}
+
 		this.setState({
 			predictedGraphData: newBGMeanGraphData, 
 			bgMeanGraphData: newBGMeanGraphData, 
 			bgQuartileGraphData: newBGQuartileGraphData, 
 			bgMin: newBGmin, 
 			bgMax: newBGmax, 
+			graphStatus: true,
 		});
 	}
 
 	render() {
 		const options = [
 			{ value: 'All', label: 'All' },
-			{ value: 'Holidays', label: 'Holidays' },
-			{ value: 'Holidays:Easter', label: 'Holidays: Easter' },
-			{ value: 'Holidays:Christmas', label: 'Holidays: Christmas' },
 			{ value: 'Weekend', label: 'Weekends' },
 			{ value: 'Monday', label: 'Monday' },
 			{ value: 'Tuesday', label: 'Tuesday' },
 			{ value: 'Wednesday', label: 'Wednesday' },
 			{ value: 'Thursday', label: 'Thursday' },
 			{ value: 'Friday', label: 'Friday' },
-			{ value: '2015', label: '2015' },
-			{ value: '2016', label: '2016' }
 		]
 
 		return (
@@ -70,30 +90,19 @@ class App extends Component {
 					<Toolbar 
 						updateGraph={this.updateGraph} 
 						updatebgGraph={this.updatebgGraph} 
+						displayLoadScreen={this.displayLoadScreen}
 					/>
 				</div>
 				<div id='graph'>
-					<div id="display">
-						<div id='graph-header'>
-							<b>Today (16 Apr 2020)</b><br/>
-							<b>Bidding zone</b>: DE-AT-LU
-							(Read more about bidding zones <a href="https://github.com/sandeshbhatjr/energy-prediction/blob/master/backend/src/empredictor/bidding_zone_info.py">here</a>)
-						</div>
-						<BarChart 
-							data={this.state.graphData} 
-							predicted={this.state.predictedGraphData} 
-							bgMin={this.state.bgMin}
-							bgMax={this.state.bgMax}
-							bgMean={this.state.bgMeanGraphData}
-							bgQuartiles={this.state.bgQuartileGraphData}
-							size={[750,600]} 
-							zoomLevel={2}
-						/>
-						<br/><br/>
-						<FontAwesomeIcon className='graph-options' icon={faTable} />
-						<FontAwesomeIcon className='graph-options-selected' icon={faChartBar} />
-						<FontAwesomeIcon className='graph-options' icon={faChartLine} /><br/><br/>
-					</div>
+					<Visualisation 
+						data={this.state.graphData} 
+						predicted={this.state.predictedGraphData} 
+						bgMin={this.state.bgMin}
+						bgMax={this.state.bgMax}
+						bgMean={this.state.bgMeanGraphData}
+						bgQuartiles={this.state.bgQuartileGraphData}
+						status={this.state.graphStatus}
+					/>
 					<div id="additional-info">
 						<div id="y-data">
 							<div className='options-header'>
@@ -102,24 +111,30 @@ class App extends Component {
 							<b><span className="tab-selected">Day-ahead price</span></b>
 							<br/><br/>
 							<div className='options-header'>
-								<b>Background Statistics</b>. <small>Group specific dates and plot their mean and quartiles in the backgrounds for reference.
-								Choose one or more of the following criterion:</small>
+								<b>Background Statistics</b>.&#160;
+								<small>
+									Group specific dates and plot their mean and 
+									quartiles in the backgrounds for reference.
+									Choose one or more of the following criterion:
+								</small>
 							</div>
 						</div>
-						<Select placeholder="No background statistics" className="select-background" isMulti options={options} menuIsOpen />
+						<Select 
+							placeholder="No background statistics" 
+							className="select-background" 
+							isMulti 
+							options={options} 
+							width={5}
+							autoFocus={false} 
+							value={this.state.bgOptions} 
+						/>
 					</div>
 				</div>
 				<div id='models'>
 					<u>Model prediction summary</u><br/><br/>
-					<div className='model-selected'><b>Naive</b> predictions (33.67%)</div>
-					<b>AR(k=8)</b> predictions (8.67%)<br/>
-					<b>VAR(k=31)</b> predictions (2.67%)<br/>
-					<b>ARIMA</b> predictions (5.67%)<br/>
-					<b>Simple ETS</b> predictions (2.67%)<br/>
-					<b>Holtz Winter</b> predictions (1.67%)<br/>
-					<b>Feedforward-NN</b> predictions (1.67%)<br/>
-					<b>Simple RNN</b> predictions (1.67%)<br/>
-					<b>Simple LSTM</b> predictions (1.07%)<br/><br/>
+					<div className='model-selected'><b>Naive</b> predictions (33.67%)</div><br/>
+					<b>[WIP]</b> Refer to the notebooks for actual predictions for now.
+					One will be able to look at them here soon. <br/><br/>
 					Technical details <a href="https://github.com/sandeshbhatjr/energy-prediction">here</a>.
 				</div>
 			</div>

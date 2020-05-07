@@ -11,7 +11,7 @@
 
 .graph-options {
 	font-size: 1.2rem;
-	color: rgb(100,100,200);
+	color: rgb(100,100,100);
 	margin-right: 0.1rem;
 	border-style: solid;
 	border-width: 1px;
@@ -120,6 +120,26 @@ hr {
 }
 
 .model-selected {
-	background: rgb(150,150,250);
+	background: rgb(250,150,150);
 	width: 95%;
+}
+
+.horizontal-slider {
+	float: right;
+	width: 4rem;
+}
+
+.thumb {
+	border-radius: 20rem;
+	background: rgb(100,100,200);
+	padding: 0.1rem 0.6rem 0.1rem 0.5rem;
+	height: 1rem;
+	cursor: pointer;
+	outline: none;
+}
+
+.track {
+	margin-top: 0.5rem;
+	border-style: solid;
+	border-width: 1px;
 }
