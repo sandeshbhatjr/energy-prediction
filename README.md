@@ -9,7 +9,8 @@ From an economic standpoint, there are three key markets in which electricity is
 
 - **futures market**: the price is set (upto 6 years) in advance, though you pay a premium for this assurance,  
 - **day-ahead market**: the price is set a day before,  
-- **intra-day market**: the price is set upto ? minutes before?   
+- **intra-day market**: the price is set upto 5 minutes before.   
+We are interested in the prediction of day-ahead and intra-day prices; the prediction window is at minimum one day in advance, but some of the algorithms naturally extend to bigger window sizes (with increasing errors as we go farther).
 
 The project is explained in the following parts:  
 1. [Data extraction and understanding](https://github.com/sandeshbhatjr/energy-prediction/blob/master/docs/ep_cleandata.ipynb)  
