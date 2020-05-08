@@ -14,7 +14,7 @@ class Germany:
 		start = pd.Timestamp('20150101', tz=self.timezone_name)
 		local_time = pd.Timestamp.now(tz=self.timezone_name)
 		tonight = dt.datetime.combine(local_time.date(), dt.time(23,0))
-		if local_time.hour >= 12:
+		if local_time.hour >= 15:
 			tomorrow_night = tonight + pd.Timedelta(days=1)
 			end = pd.Timestamp(tomorrow_night).tz_localize(self.timezone_name)
 		else:
