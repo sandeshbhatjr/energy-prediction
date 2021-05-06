@@ -7,7 +7,7 @@ convertdate==2.2.0
 -e git+https://github.com/sandeshbhatjr/energy-prediction.git@960b82abfe8a394cfc46134c3702f0dccc43a2af#egg=empredictor&subdirectory=backend
 entsoe-py==0.2.11
 Flask==1.1.1
-Flask-Cors==3.0.8
+Flask-Cors==3.0.9
 holidays==0.10.1
 idna==2.9
 importlib-metadata==1.6.0
