@@ -2,6 +2,8 @@
 What is the SOTA technique for forecasting day-ahead and intraday market prices for electricity in Germany?  
 [Live version here!](https://energy-client-dot-energy-predictor.appspot.com/)
 
+THIS HAS BEEN STAGNANT FOR A WHILE BECAUSE I HAVE BEEN BUSY. STARTING THIS SUMMER, I PLAN TO PUT SOME EFFORT BACK INTO THIS PROJECT.
+
 ## Introduction
 
 Free electricity markets are governed by a strong supply-demand dynamics. The key reason is that electricity can't be stored, so what is generated needs to be used up instantly. This makes forecasting demands essential to the business.  
