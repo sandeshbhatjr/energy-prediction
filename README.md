@@ -1,6 +1,6 @@
 # energy-prediction
 What is the SOTA technique for forecasting day-ahead and intraday market prices for electricity in Germany?  
-[Live version here!](https://energy-client-dot-energy-predictor.appspot.com/)
+~[Live version here!](https://energy-client-dot-energy-predictor.appspot.com/)~ WILL BE UPDATED SOON
 
 THIS HAS BEEN STAGNANT FOR A WHILE BECAUSE I HAVE BEEN BUSY. STARTING THIS SUMMER, I PLAN TO PUT SOME EFFORT BACK INTO THIS PROJECT.
 
