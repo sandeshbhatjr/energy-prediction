@@ -23,7 +23,7 @@ packaging==20.3
 pandas==1.0.1
 patsy==0.5.1
 pluggy==0.13.1
-py==1.8.1
+py==1.10.0
 pyCalverter==1.6.1
 pyluach==1.0.1
 PyMeeus==0.3.7
