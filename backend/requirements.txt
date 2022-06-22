@@ -18,7 +18,7 @@ lunardate==0.2.0
 MarkupSafe==1.1.1
 more-itertools==8.2.0
 numexpr==2.7.1
-numpy==1.18.1
+numpy==1.22.0
 packaging==20.3
 pandas==1.0.1
 patsy==0.5.1
